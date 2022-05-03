@@ -1,0 +1,59 @@
+{
+  "projectType": "library",
+  "root": "libs/ex-lib",
+  "sourceRoot": "libs/ex-lib/src",
+  "prefix": "nx-global-styles-ex",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ex-lib"],
+      "options": {
+        "jestConfig": "libs/ex-lib/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/ex-lib/**/*.ts", "libs/ex-lib/**/*.html"]
+      }
+    },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "uiFramework": "@storybook/angular",
+        "port": 4400,
+        "config": {
+          "configFolder": "libs/ex-lib/.storybook"
+        },
+        "projectBuildConfig": "ex-lib:build-storybook"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "uiFramework": "@storybook/angular",
+        "outputPath": "dist/storybook/ex-lib",
+        "config": {
+          "configFolder": "libs/ex-lib/.storybook"
+        },
+        "projectBuildConfig": "ex-lib:build-storybook",
+        "styles": [
+          "libs/ex-lib/src/styles.scss"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
